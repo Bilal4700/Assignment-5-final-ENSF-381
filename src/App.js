@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Homepage from './components/Homepage';
 import Productpage from './components/Productpage';
 import LoginPage from './components/LoginPage';
-import Header from './components/Header';
-import Footer from './components/Footer';
+
 
 const App = () => {
   const [isUserAuthenticated, setAuthenticationStatus] = useState(false);

@@ -8,7 +8,7 @@ const ProductList = ({ onAddToCart }) => {
 
   useEffect(() => {
     // Fetch product data from backend API when component mounts
-    fetch('http://localhost:5000/products')     // Make sure to replace 'http://localhost:5000/products' with the actual URL of your backend API endpoint where the product data is served.
+    fetch('http://127.0.0.1:5000/products')    
       .then(response => response.json()) // Parse response as JSON
       .then(data => setProducts(data)) // Set fetched products to state
       .catch(error => console.error('Error fetching products:', error)); // Handle fetch errors
