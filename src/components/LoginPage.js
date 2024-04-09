@@ -1,67 +1,32 @@
 // LoginPage.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
+import Header from './Header'; 
+import Footer from './Footer'; 
 
 const LoginPage = ({ setIsLoggedIn }) => {
-    const navigate = useNavigate(); 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+  const [showLogin, setShowLogin] = useState(true);
 
-    const handleLoginSubmit = async (event) => {
-        event.preventDefault();
-        
-     
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
+  const toggleForm = () => setShowLogin(!showLogin);
 
-            if (response.ok) {
-
-                setIsLoggedIn(true); 
-                
-                navigate('/products'); // Redirect to ProductPage
-            } else {
-                // Handle unsuccessful login attempts here 
-                alert('Login failed. Please try again.');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            alert('An error occurred. Please try again later.');
-        }
-    };
-
-    return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLoginSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        placeholder="Enter your username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <Header />
+      {showLogin ? (
+        <LoginForm
+          onLoginSubmit={setIsLoggedIn} 
+          onSwitchToSignup={toggleForm}
+        />
+      ) : (
+        <SignupForm
+          onSubmit={setIsLoggedIn} 
+          switchToLogin={toggleForm}
+        />
+      )}
+      <Footer />
+    </div>
+  );
 };
 
 export default LoginPage;
-

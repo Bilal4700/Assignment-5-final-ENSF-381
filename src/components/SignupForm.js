@@ -1,68 +1,70 @@
 // SignupForm.js
 import React, { useState } from 'react';
 
-const SignupForm = ({ onSwitchToLogin, onSignupSubmit }) => {
-    const [user, setUser] = useState('');
-    const [pass, setPass] = useState('');
-    const [confirmPass, setConfirmPass] = useState('');
-    const [mail, setMail] = useState('');
+const SignupForm = ({ switchToLogin, onSubmit }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        if (user.trim() === '' || pass.trim() === '' || confirmPass.trim() === '' || mail.trim() === '') {
-            alert('All fields must be filled out.');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        if (username.trim() === '' || password.trim() === '' || confirmPassword.trim() === '' || email.trim() === '') {
+            alert('Please fill in all fields.');
             return;
         }
-        if (pass !== confirmPass) {
+        if (password !== confirmPassword) {
             alert('Passwords do not match.');
             return;
         }
-        onSignupSubmit({ user, pass, mail });
+        
+        onSubmit({ username, password, email });
     };
 
     return (
         <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleFormSubmit}>
+            <h2>Signup</h2>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username:</label>
                     <input
                         type="text"
-                        placeholder="Pick a username"
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
+                        placeholder="Choose a username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
                 <div>
                     <label>Password:</label>
                     <input
                         type="password"
-                        placeholder="Create a password"
-                        value={pass}
-                        onChange={(e) => setPass(e.target.value)}
+                        placeholder="Choose a password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div>
                     <label>Confirm Password:</label>
                     <input
                         type="password"
-                        placeholder="Repeat your password"
-                        value={confirmPass}
-                        onChange={(e) => setConfirmPass(e.target.value)}
+                        placeholder="Confirm your password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
                 <div>
                     <label>Email:</label>
                     <input
                         type="email"
-                        placeholder="Your email address"
-                        value={mail}
-                        onChange={(e) => setMail(e.target.value)}
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit">Signup</button>
             </form>
-            <p>Already a member? <button onClick={onSwitchToLogin}>Log In</button></p>
+            <p>Already have an account? <button onClick={switchToLogin}>Login</button></p>
         </div>
     );
 };
