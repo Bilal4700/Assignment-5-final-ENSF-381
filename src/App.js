@@ -12,14 +12,14 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
+
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setAuthenticationStatus} />} />
         <Route path="/products" element={isUserAuthenticated ? <Productpage /> : <Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Footer />
+
     </Router>
   );
 };
