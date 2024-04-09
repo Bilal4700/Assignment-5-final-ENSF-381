@@ -4,34 +4,26 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Homepage from './components/Homepage';
 import Productpage from './components/Productpage';
 import LoginPage from './components/LoginPage';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App = () => {
-  // State to track login status
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUserAuthenticated, setAuthenticationStatus] = useState(false);
 
   return (
     <Router>
-      <div>
-        <Routes>
-          {/* Route for the homepage */}
-          <Route path="/" element={<Homepage />} />
-          
-          {/* Protected route for the product page */}
-          <Route
-            path="/products"
-            element={isLoggedIn ? <Productpage /> : <Navigate to="/login" />}
-          />
-
-          {/* Route for the login page */}
-          <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-          
-          {/* Redirect unknown routes to the homepage */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<LoginPage setIsLoggedIn={setAuthenticationStatus} />} />
+        <Route path="/products" element={isUserAuthenticated ? <Productpage /> : <Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 };
 
 export default App;
+
 
